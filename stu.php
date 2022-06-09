@@ -1,0 +1,531 @@
+<?php
+@session_start();
+
+?>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>ระบบบันทึกชั่วโมงจิตอาสา กยศ. กรอ.
+        คณะการบัญชีและการจัดการ มหาวิทยาลัยมหาสารคาม</title>
+
+    <!-- Custom fonts for this template -->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this page -->
+    <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <!-- การลิ้ง icon เพื่อใช้งาน icon -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+        integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+
+    <!-- การลิ้ง sweetalert2 เเบบ cdn  -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+</head>
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+            <!-- Sidebar - Brand -->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center">
+                <div class="sidebar-brand-icon rotate-n-15">
+                    <i class="fas fa-table"></i>
+                </div>
+                <div class="sidebar-brand-text mx-3">MBS Together</sup></div>
+            </a>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0">
+
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item">
+                <a class="nav-link" href="std.php">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>ข้อมูลนิสิต</span></a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                บันทึกชั่วโมงจิตอาสา กยศ. กรอ.
+            </div>
+
+
+
+
+            <!-- Nav Item - Tables -->
+            <li class="nav-item active">
+                <a class="nav-link" href="stu.php">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>ข้อมูลบันทึกชั่วโมงจิตอาสา</span></a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Report
+            </div>
+
+
+
+            <!-- Nav Item - Tables -->
+            <li class="nav-item active">
+                <a class="nav-link" href="report.php">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>รายงาน (Report)</span></a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider d-none d-md-block">
+
+            <!-- Sidebar Toggler (Sidebar) -->
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            </div>
+
+        </ul>
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+                    <!-- Sidebar Toggle (Topbar) -->
+                    <form class="form-inline">
+                        <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                    </form>
+
+
+
+                    <!-- Topbar Navbar -->
+                    <ul class="navbar-nav ml-auto">
+
+                        <!-- Nav Item - Search Dropdown (Visible Only XS) -->
+                        <li class="nav-item dropdown no-arrow d-sm-none">
+                            <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-search fa-fw"></i>
+                            </a>
+                            <!-- Dropdown - Messages -->
+                            <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
+                                aria-labelledby="searchDropdown">
+                                <form class="form-inline mr-auto w-100 navbar-search">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control bg-light border-0 small"
+                                            placeholder="Search for..." aria-label="Search"
+                                            aria-describedby="basic-addon2">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-primary" type="button">
+                                                <i class="fas fa-search fa-sm"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </li>
+
+
+
+                        <div class="topbar-divider d-none d-sm-block"></div>
+
+                        <!-- Nav Item - User Information -->
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Admin MBS
+                                    <?php
+				if ( empty( $_SESSION[ 'name' ] ) ) {
+					?>
+
+                                    <?php }
+				else{
+				?>
+                                    <h6 class="">
+                                        <?=$_SESSION['name'];?>
+                                    </h6>
+                                    <?php } ?>
+                                </span>
+                                <img class="img-profile rounded-circle" src="mbs.png">
+                            </a>
+                            <!-- Dropdown - User Information -->
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="userDropdown">
+
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="" data-toggle="modal" data-target="#logoutModal">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i> ออกจากระบบ
+                                </a>
+                            </div>
+                        </li>
+
+                    </ul>
+
+                </nav>
+
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <h1 class="h3 mb-2 text-gray-800">บันทึกชั่วโมงจิตอาสา กยศ. กรอ.
+                        คณะการบัญชีและการจัดการ มหาวิทยาลัยมหาสารคาม</h1>
+                    <p class="mb-4"></p>
+
+                    <!-- DataTales Example -->
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            <i class="fas fa-table"></i>
+                            ตารางข้อมูลชั่วโมงจิตอาสาของนิสิต
+
+                            <div class="card-header py-3">
+                                <div class="  mt-5">
+                                    <!-- <h6 class="m-0 font-weight-bold text-primary">ค้นหารหัสนิสิต</h6> -->
+                                    <form action="" method="POST">
+                                        <div class="form-row">
+                                            <div class="col">
+                                                <input type="text" name="stu_id" class="form-control"
+                                                    placeholder="รหัสนิสิต">
+                                            </div>
+                                            <div class="col">
+                                                <input type="text" name="stu_n" class="form-control" placeholder="ชื่อ">
+                                            </div>
+                                        </div>
+                                        <button type="submit" name="submitId"
+                                            class="btn btn-primary mt-3">ค้นหา</button>
+                                    </form>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="">
+                                    <thead>
+                                        <tr>
+                                            <th>รหัสนิสิต</th>
+                                            <th>ชื่อ - นามสกุล</th>
+                                            <th>สาขา</th>
+                                            <th>ชั้นปี</th>
+
+
+                                            <th>ชื่อกิจกรรมจิตอาสา</th>
+
+                                            <th>สถานที่ทำกิจกรรม</th>
+
+                                            <th>วันที่ทำกิจกรรม</th>
+
+                                            <th>ภาคเรียนที่</th>
+                                            <th>ปีการศึกษา</th>
+                                            <th>จำนวนชั่วโมงรวม</th>
+                                            <th>จัดการข้อมูล</th>
+
+
+                                        </tr>
+
+                                    </thead>
+
+                                    </tbody>
+                                    <?php
+include_once("connectdb_admin2.php");
+ 
+    $stu_id  ="";
+    $stu_n = "";
+    $sql = "SELECT * FROM `studentloan` LIMIT 100";
+ 
+
+    if (isset($_POST["submitId"])) {
+    
+        if(isset($_POST["stu_id"]) && isset($_POST["stu_n"])){
+            $stu_id =  $_POST["stu_id"] ;
+            $stu_n = $_POST["stu_n"] ;
+
+            $sql = "SELECT * FROM `studentloan` 
+                    WHERE `stu_n` LIKE '%$stu_n%' OR
+                    `stu_id` LIKE '%$stu_id%'";
+
+        }
+
+       if(isset($_POST["stu_n"]) && empty($_POST["stu_id"])){
+              $stu_n =$_POST["stu_n"];
+              $sql = "SELECT * FROM `studentloan` 
+                    WHERE `stu_n` LIKE '%$stu_n%'  ";
+        } 
+
+        if(isset($_POST["stu_id"]) && empty($_POST["stu_n"])){
+              $stu_id =$_POST["stu_id"];
+              $sql = "SELECT * FROM `studentloan` 
+                    WHERE `stu_id` LIKE '%$stu_id%'  ";
+        } 
+
+    }
+
+
+
+ $result = mysqli_query($conn,$sql);
+ while($data = mysqli_fetch_array($result)){
+ ?>
+                                    <tr>
+                                        <td><?=$data['stu_id'];?></td>
+                                        <td><?=$data['stu_n'];?></td>
+                                        <td><?=$data['branch'];?></td>
+                                        <td><?=$data['stu_year'];?></td>
+
+                                        <td><?=$data['std_name'];?></td>
+                                        <td><?=$data['std_po'];?></td>
+
+                                        <td><?=$data['s_date'];?></td>
+
+                                        <td><?=$data['p_io'];?></td>
+                                        <td><?=$data['p_lo'];?></td>
+                                        <td><?=$data['p_do'];?></td>
+
+                                        <td class="text-center">
+                                            <div class="btn-group btn-group-sm">
+
+
+
+                                                <a href="updateP.php?std_id_auto=<?=$data['std_id_auto'];?>"
+                                                    class="btn btn-warning btn-circle" data-toggle="tooltip"
+                                                    data-placement="top" title="แก้ไขข้อมูล">
+                                                    <i class="fas fa-edit"></i>
+
+                                                </a>
+                                                <a href="stu.php?deleteR=req&std_id_auto=<?php echo $data["std_id_auto"]; ?>"
+                                                    class="btn btn-danger btn-circle" data-toggle="tooltip"
+                                                    data-placement="top" title="ลบข้อมูล">
+                                                    <i class="fas fa-trash"></i>
+
+                                                </a>
+
+
+                                                <button class="btn btn-info btn-circle" data-toggle="modal"
+                                                    data-target="#exampleModalLong<?=$data['std_id_auto'];?>"
+                                                    data-toggle="tooltip" data-placement="top" title="ดูข้อมูล">
+                                                    <i class="fas fa-eye"></i>
+                                                </button>
+
+
+
+                                        </td>
+
+
+
+                                    </tr>
+
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="exampleModalLong<?=$data['std_id_auto'];?>"
+                                        tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+                                        aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLongTitle">
+                                                        รายละเอียดชั่วโมงจิตอาสา</h5>
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <b>รหัสนิสิต</b> <?=$data['stu_id'];?><br>
+                                                    <b>ชื่อ - นามสกุล</b> <?=$data['stu_n'];?><br>
+                                                    <b>สาขา</b> <?=$data['branch'];?><br>
+                                                    <b>ชั้นปี</b> <?=$data['stu_year'];?><br>
+                                                    <b>คณะ</b> <?=$data['stu_board'];?><br>
+                                                    <b>ชื่อกิจกรรมจิตอาสา</b> <?=$data['std_name'];?><br>
+                                                    <b>สถานที่ทำกิจกรรม</b> <?=$data['std_po'];?><br>
+                                                    <b>ลักษณะของกิจกรรม</b> <?=$data['std_lo'];?><br>
+                                                    <b>วัน/เดือน/ปี</b> <?=$data['s_date'];?><br>
+                                                    <b>เวลาที่ทำกิจกรรม</b> <?=$data['t_ime'];?><br>
+                                                    <b>ถึง</b> <?=$data['p_ao'];?><br>
+                                                    <b>ภาคเรียนที่</b> <?=$data['p_io'];?><br>
+                                                    <b>ปีการศึกษา</b> <?=$data['p_lo'];?><br>
+                                                    <b>จำนวนชั่วโมงรวม</b> <?=$data['p_do'];?> ชั่วโมง<br>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-dismiss="modal">ปิด</button>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <?php 
+                                
+                                }  ?>
+
+                                </table>
+
+                            </div>
+                        </div>
+
+
+
+
+
+                        <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+                    </div>
+
+                    <p class="small text-center text-muted my-5">
+                        <em>คณะการบัญชีและการจัดการ มหาวิทยาลัยมหาสารคาม ต.ขามเรียง อ.กันทรวิชัย จ.มหาสารคาม 44150
+                            <br> Tel:0-4375-333 to 3445</em>
+                    </p>
+
+                </div>
+                <!-- /.container-fluid -->
+
+                <!-- Sticky Footer -->
+                <footer class="sticky-footer">
+                    <div class="container my-auto">
+                        <div class="copyright text-center my-auto">
+                            <span>Copyright © Your Website 2019</span>
+                        </div>
+                    </div>
+                </footer>
+
+            </div>
+            <!-- /.content-wrapper -->
+
+        </div>
+        <!-- /#wrapper -->
+
+        <!-- Scroll to Top Button-->
+        <a class="scroll-to-top rounded" href="#page-top">
+            <i class="fas fa-angle-up"></i>
+        </a>
+
+        <!-- Logout Modal-->
+        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">แน่ใจว่าต้องการออกจากระบบ ? </h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        เลือก "ออกจากระบบ" ด้านล่างหากคุณพร้อมที่จะสิ้นสุดเซสชันปัจจุบันของคุณ</div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">ยกเลิก</button>
+                        <a class="btn btn-primary" href="login.php">ออกจากระบบ</a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <?php
+
+        if (isset($_GET["deleteR"] )) {
+                echo
+                    "<script> 
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'ยืนยันการลบข้อมูล?',
+                            text: 'ท่านเเน่ใจว่า ท่าต้องการลบข้อมูล!',
+                            showCancelButton: true,
+                            confirmButtonColor: '#3085d6',
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: 'ใช่',
+                            cancelButtonText: 'ไม่!'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                location = 'stu.php?deleteR2=req&std_id_auto={$_GET["std_id_auto"]}'
+                            }else{
+                                location = 'stu.php'
+                            }
+                        }); 
+                </script>";
+        }
+
+        //เช็อกว่่ามีการส่งค่า Get p_id หรือไม่ (?p_id=xxx)
+        if (isset($_GET["deleteR2"])) {
+
+            // คำสั่ง sql ในการลบข้อมูล ตาราง tbl_products โดยจะลบข้อมูลสินค้า p_id ที่ส่งมา
+            $sql =   "DELETE FROM `studentloan` WHERE std_id_auto = '{$_GET["std_id_auto"]}'";
+
+            if (mysqli_query($conn, $sql)) {
+                echo
+                    "<script> 
+                        Swal.fire(
+                            'ลบข้อมูลสำเร็จ!',
+                            'ท่านได้ลบข้อมูลเรียบร้อย',
+                            'success'
+                        ).then(()=> location = 'stu.php')
+                    </script>";
+                //header('Location: index.php');
+            } else {
+                echo
+                    "<script> 
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'ลบข้อมูลไม่สำเร็จ', 
+                    }).then(()=> location = 'stu.php')
+                </script>";
+            }
+
+            mysqli_close($conn);
+        }
+        ?>
+
+
+
+
+
+
+
+        <!-- Bootstrap core JavaScript-->
+        <script src="vendor/jquery/jquery.min.js"></script>
+        <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+        <!-- Core plugin JavaScript-->
+        <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+        <!-- Page level plugin JavaScript-->
+        <script src="vendor/datatables/jquery.dataTables.js"></script>
+        <script src="vendor/datatables/dataTables.bootstrap4.js"></script>
+
+        <!-- Custom scripts for all pages-->
+        <script src="js/sb-admin.min.js"></script>
+
+        <!-- Demo scripts for this page-->
+        <script src="js/demo/datatables-demo.js"></script>
+
+
+
+</body>
+
+</html>
